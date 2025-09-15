@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\checkoutController;
 use App\Http\Controllers\Api\RajaOngkirController;
 
 Route::get('/user', function (Request $request) {
@@ -32,7 +34,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/cart/total', [CartController::class, 'getCartTotal']);
     Route::get('/cart/totalWeight', [CartController::class, 'getCartTotalWeight']);
     Route::post('/cart/remove/{cart}', [CartController::class, 'removeCart']);
+
+    Route::post('/checkout', [checkoutController::class, 'store']);
+    Route::get('/order', [OrderController::class, 'index']);
+    Route::get('/order/{snap_token?}', [OrderController::class, 'show']);
+
 });
+
+Route::post('/notificationHandler', [checkoutController::class, 'notificationHandler']);
 
 Route::get('/rajaongkir/provinces', [RajaOngkirController::class, 'getProvinces']);
 Route::get('/rajaongkir/cities/{provinceId}', [RajaOngkirController::class, 'getCities']);
