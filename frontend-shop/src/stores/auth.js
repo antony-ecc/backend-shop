@@ -36,6 +36,23 @@ export const useAuthStore = defineStore('authStore', {
                 this.errors = error.response.data.errors;
                 return false;
             }
+        },
+
+        async logout() {
+            try {
+                const res = await Api.post('/logout');
+
+                const data = res.data;
+
+                if(data) {
+                    this.user = null;
+                    this.errors = {};
+                    localStorage.removeItem('token');
+                    this.router.push({ name: 'home' });
+                }
+            } catch (error) {
+                this.errors = error.response.data.errors
+            }
         }
     }
 })

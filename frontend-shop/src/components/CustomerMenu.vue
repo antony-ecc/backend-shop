@@ -1,4 +1,8 @@
 <script setup>
+import { useAuthStore } from '@/stores/auth';
+
+
+const authStore = useAuthStore()
 </script>
 
 <template>
@@ -32,7 +36,7 @@
           </router-link>
         </li>
         <li>
-          <form>
+          <form @submit.prevent="authStore.logout()">
             <button
               class="flex items-center p-3 w-full rounded-lg text-gray-600 hover:bg-gray-100 transition duration-200">
               <svg class="w-5 h-5 mr-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"
