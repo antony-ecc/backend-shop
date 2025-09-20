@@ -10,7 +10,7 @@ export const useCartStore = defineStore("cartStore", {
   actions: {
     async addToCart(product_id, quantity) {
       try {
-        const res = await Api.post("/cart", {
+        const res = await Api.post('/cart', {
           product_id: product_id,
           quantity: quantity,
         });

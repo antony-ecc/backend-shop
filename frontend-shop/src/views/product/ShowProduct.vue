@@ -6,44 +6,28 @@ import { useProductStore } from '@/stores/product';
 import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-// import Swal from 'sweetalert2';
 
 
 const { getDetailProduct } = useProductStore();
-const product = ref({})
+const product = ref([]);
 const route = useRoute();
-const router = useRouter();
+const quantity = ref(1);
 
-const { user } = storeToRefs(useAuthStore());
-const quantity = ref(1)
 const { addToCart } = useCartStore();
-
-onMounted(async () => {
-  const slug = route.params.slug
-  product.value = await getDetailProduct(slug)
-})
+const { user } = storeToRefs(useAuthStore());
+const { router } = useRouter();
 
 const handleAddToCart = async (product, quantity) => {
-  if (!user.value) {
-    return router.push({ name: "login" });
-  }
-
-  await addToCart(product, quantity);
-//   if (res) {
-//     Swal.fire({
-//       toast: true,
-//       position: "top-end", // posisi: top, top-start, top-end, bottom, bottom-start, bottom-end
-//       icon: "success",
-//       title: "Success add item to cart",
-//       showConfirmButton: false,
-//       timer: 3000,
-//       timerProgressBar: true,
-//       customClass: {
-//         popup: 'mt-24' // kalau pakai Tailwind → kasih margin top 24
-//       }
-    // });
-//   }
+    if(!user.value) {
+        return router.push({name: 'login'})
+    }
+    await addToCart(product, quantity);
 }
+
+onMounted(async () => {
+    const slug = route.params.slug;
+    product.value = await getDetailProduct(slug);
+})
 </script>
 
 <template>
@@ -70,11 +54,10 @@ const handleAddToCart = async (product, quantity) => {
               <div class="text-2xl font-semibold mb-8">{{ moneyFormat(calculateDiscount(product)) }}</div>
               <div class="flex items-center mb-8">
                 <span>Quantity</span>
-                <input type="number" class="ml-2 border rounded-2xl py-1 px-3" v-model="quantity" />
+                <input v-model="quantity" type="number" class="ml-2 border rounded-2xl py-1 px-3" />
               </div>
               <div class="mb-4 pb-4 border-b border-gray-line">
-                <p v-if="product.discount != null || product.discount > 0" class="mb-2">Discount: <strong> {{
-                  product.discount }}%</strong></p>
+                <p v-if="product.discount !=null || product.discount > 0" class="mb-2">Discount: <strong> {{ product.discount }}%</strong></p>
               </div>
               <button @click.prevent="handleAddToCart(product.id, quantity)"
                 class="bg-primary border border-transparent hover:bg-transparent hover:border-primary text-white hover:text-primary font-semibold py-2 px-4 rounded-full">Add
@@ -106,7 +89,7 @@ const handleAddToCart = async (product, quantity) => {
             <!-- Additional Information -->
             <div>
               <h3 class="text-lg font-semibold mb-2">Product Description</h3>
-              <p v-html="product.content"></p>
+              <p v-html="product.description"></p>
             </div>
           </div>
         </div>
