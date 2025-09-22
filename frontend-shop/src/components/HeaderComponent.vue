@@ -39,7 +39,7 @@ onMounted(async () => {
       <!-- Right section: Buttons (for desktop) -->
       <div class="hidden lg:flex items-center space-x-4 relative">
         <div class="relative group cart-wrapper">
-          <router-link to="">
+          <router-link :to="{ name: 'cart' }">
             <img src="../assets/images/cart-shopping.svg" alt="Cart" class="h-6 w-6 group-hover:scale-120">
           </router-link>
         </div>

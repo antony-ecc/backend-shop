@@ -49,7 +49,7 @@ class CartController extends Controller
         } else {
             $cartItem = Cart::create([
                 'product_id' => $product->id,
-                'customer_id' => $request->customer_id,
+                'customer_id' => $userId,
                 'qty' => $request->quantity ?? 1,
                 'price' => $finalPrice * ($request->quantity ?? 1),
                 'weight' => $product->weight * ($request->quantity ?? 1),

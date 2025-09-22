@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class checkoutController extends Controller
 {
-    protected $request;
+    public $request;
 
     public function __construct(Request $request)
     {
@@ -40,7 +40,7 @@ class checkoutController extends Controller
 
             $total_weight = Cart::where('customer_id', Auth::user()->id)->sum('weight');
             $total_cart = Cart::where('customer_id', Auth::user()->id)->sum('price');
-
+            
             $invoice = Invoice::create([
                 'invoice' => $no_invoice,
                 'customer_id' => Auth::user()->id,
@@ -65,11 +65,11 @@ class checkoutController extends Controller
                     'product_id' => $cart->product_id,
                     'product_name' => $cart->product->title,
                     'image' => $cart->product->image,
-                    'qty' => $cart->quantity,
+                    'qty' => $cart->qty,
                     'price' => $cart->price,
                 ];
 
-                $cart->product->decrement('stock', $cart->quantity);
+                $cart->product->decrement('stock', $cart->qty);
             }
 
             $invoice->orders()->createMany($orders);
@@ -101,6 +101,7 @@ class checkoutController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Checkout Successfully!',
+            'request' => $this->request,
             'snap_token' => $snapToken,
         ], 200);
     }
