@@ -13,13 +13,15 @@ actions: {
         const data = res.data;
 
         return data.data;
-    }
-},
+    },
 
-async getDetailOrder(snap_token) {
+    async getDetailOrder(snap_token) {
     const res = await Api.get(`/order/${snap_token}`);
     const data = res.data;
 
     return data.data;
     }
+},
+
+
 })

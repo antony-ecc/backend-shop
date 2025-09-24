@@ -80,7 +80,7 @@ class checkoutController extends Controller
             $payload = [
                 'transaction_details' => [
                     'order_id' => $invoice->invoice,
-                    'gross-amount' => $invoice->grand_total,
+                    'gross_amount' => $invoice->grand_total,
                 ],
                 'customer_details' => [
                     'first_name' => $invoice->name,

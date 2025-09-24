@@ -1,5 +1,6 @@
 <script setup>
 import CustomerMenu from '@/components/CustomerMenu.vue';
+import { moneyFormat } from '@/helper/useFormatter';
 import { useOrderStore } from '@/stores/order';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -70,7 +71,7 @@ onMounted(async () => {
                   </td>
                   <td class="w-1 py-2">:</td>
                   <td class="py-2">
-                    detailOrder.address
+                    {{ detailOrder.address }}
                   </td>
                 </tr>
                 <tr>
@@ -79,7 +80,7 @@ onMounted(async () => {
                   </td>
                   <td class="w-1 py-2">:</td>
                   <td class="py-2">
-                    moneyFormat(detailOrder.grand_total)
+                    {{ moneyFormat(detailOrder.grand_total) }}
                   </td>
                 </tr>
                 <tr>

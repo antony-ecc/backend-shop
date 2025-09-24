@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -15,8 +15,8 @@ class OrderController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'List Invoice' . Auth::user()->name,
-            'data' => $invoices,
+            'message' => 'List Invoices: ' . Auth::user()->name,
+            'data' => $invoices
         ], 200);
     }
 
@@ -26,7 +26,7 @@ class OrderController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'List Invoice' . Auth::user()->name,
+            'message' => 'Detail Invoice: ' . Auth::user()->name,
             'data' => $invoice,
         ], 200);
     }
