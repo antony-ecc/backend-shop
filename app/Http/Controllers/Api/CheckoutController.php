@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class checkoutController extends Controller
+class CheckoutController extends Controller
 {
     public $request;
 
@@ -101,7 +101,6 @@ class checkoutController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Checkout Successfully!',
-            'request' => $this->request,
             'snap_token' => $snapToken,
         ], 200);
     }

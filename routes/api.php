@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\checkoutController;
+use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\RajaOngkirController;
 
 Route::get('/user', function (Request $request) {
@@ -35,13 +35,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/cart/totalWeight', [CartController::class, 'getCartTotalWeight']);
     Route::post('/cart/remove/{cart}', [CartController::class, 'removeCart']);
 
-    Route::post('/checkout', [checkoutController::class, 'store']);
+    Route::post('/checkout', [CheckoutController::class, 'store']);
     Route::get('/order', [OrderController::class, 'index']);
     Route::get('/order/{snap_token?}', [OrderController::class, 'show']);
 
 });
 
-Route::post('/notificationHandler', [checkoutController::class, 'notificationHandler']);
+Route::post('/notificationHandler', [CheckoutController::class, 'notificationHandler']);
 
 Route::get('/rajaongkir/provinces', [RajaOngkirController::class, 'getProvinces']);
 Route::get('/rajaongkir/cities/{provinceId}', [RajaOngkirController::class, 'getCities']);
